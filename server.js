@@ -1,17 +1,20 @@
 const express = require('express');
+const connectDB = require('./config/db');
 
 const app = express();
 
-const BASE_URL = '/api/';
+const API_URL = '/api';
+
+connectDB();
 
 app.get('/', (req, res) =>
   res.json({ msg: 'Welcome to the contact keeper api' })
 );
 
 // Define Routes
-app.use(`${BASE_URL}users`, require('./routes/users'));
-app.use(`${BASE_URL}auth`, require('./routes/auth'));
-app.use(`${BASE_URL}contacts`, require('./routes/contacts'));
+app.use(`${API_URL}/users`, require('./routes/users'));
+app.use(`${API_URL}/auth`, require('./routes/auth'));
+app.use(`${API_URL}/contacts`, require('./routes/contacts'));
 
 const PORT = process.env.PORT || 5000;
 
