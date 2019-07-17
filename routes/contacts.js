@@ -101,8 +101,8 @@ router.delete('/:id', auth, async (req, res) => {
     // Make user owns contact
     if (contact.user.toString() !== req.user.id)
       return res.status(401).json({ msg: 'Not authorized to update' });
-    contact = await Contact.findByIdAndDelete(req.params.id);
-    res.json(contact);
+    await Contact.findByIdAndRemove(req.params.id);
+    res.json({ msg: 'Contact removed' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

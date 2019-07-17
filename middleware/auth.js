@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
-
+require('dotenv').config();
 module.exports = function(req, res, next) {
   // Get token from header
   const token = req.header('x-auth-token');
@@ -10,7 +9,7 @@ module.exports = function(req, res, next) {
     return res.status(401).json({ mgs: 'No token, authorization denied' });
 
   try {
-    const decode = jwt.verify(token, config.get('jwtSecret'));
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decode.user;
     next();
   } catch (err) {
