@@ -38,13 +38,9 @@ router.post(
     const { email, password } = req.body;
     try {
       let user = await User.findOne({ email });
-      if (!user)
-        return res.status(400).json({ msg: 'Email is already being used' });
+      if (!user) return res.status(400).json({ msg: 'Invalid Credentials' });
       const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch)
-        res
-          .status(400)
-          .json({ msg: 'Email and password combination does not match' });
+      if (!isMatch) res.status(400).json({ msg: 'Invalid Credentials' });
       const payload = {
         user: {
           id: user.id
