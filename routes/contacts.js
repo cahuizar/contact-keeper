@@ -50,7 +50,6 @@ router.post(
         type
       });
       const contact = await newContact.save();
-      console.log(contact.email);
       res.json(contact);
     } catch (err) {
       console.error(err.message);
